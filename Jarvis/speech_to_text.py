@@ -11,7 +11,7 @@ def record_text():
 
                 r.adjust_for_ambient_noise(source, duration=0.2)
 
-                audio = r.listen(source, 60, 10)
+                audio = r.listen(source, 30, 10)
 
                 MyText = r.recognize_google(audio)
 

@@ -35,7 +35,7 @@ def chat_with_llm():
     input_str = ""
 
     while True:
-        if input_str == "Bye":
+        if input_str.lower() == "bye":
             break
 
         prompt = (
@@ -43,16 +43,26 @@ def chat_with_llm():
         )
 
         make_border()
+
         print("User input:")
-        input_str = record_text()
+
+        input_str = ""
+
+        while True:
+            input_str = record_text()
+
+            if input_str != "":
+                break
+
+            print("Repeat request again: ")
 
         print(input_str)
 
         make_border()
 
-        chain = LLMChain(llm=llm, prompt=prompt)
+        chain = prompt | llm
 
-        ai_message = chain.invoke(input=input_str)['text']
+        ai_message = chain.invoke(input=input_str).content
 
         print("Chat bot answer: ")
         print(ai_message)
