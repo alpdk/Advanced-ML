@@ -62,15 +62,29 @@ def chat_with_llm():
 
         chain = prompt | llm
 
-        ai_message = chain.invoke(input=input_str).content
+        ai_res_message = ""
 
-        print("Chat bot answer: ")
-        print(ai_message)
+        ai_chunk_message = ""
 
-        play_text_to_speech(ai_message)
+        for chunk in chain.stream(input=input_str):
+
+            ai_chunk_message += chunk.content
+
+            if ("." in ai_chunk_message or
+                "!" in ai_chunk_message or
+                "?" in ai_chunk_message and
+                    any(c.isalpha() for c in ai_chunk_message)):
+                print(ai_chunk_message, end="")
+
+                play_text_to_speech(ai_chunk_message)
+
+                ai_res_message += ai_chunk_message
+                ai_chunk_message = ""
+
+        print("")
 
         prompt = (
-                prompt + HumanMessage(content=input_str) + AIMessage(content=ai_message)
+                prompt + HumanMessage(content=input_str) + AIMessage(content=ai_res_message)
         )
 
     make_border()
