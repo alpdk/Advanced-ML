@@ -70,9 +70,9 @@ def chat_with_llm():
 
             ai_chunk_message += chunk.content
 
-            if ("." in ai_chunk_message or
+            if (("." in ai_chunk_message or
                 "!" in ai_chunk_message or
-                "?" in ai_chunk_message and
+                "?" in ai_chunk_message) and
                     any(c.isalpha() for c in ai_chunk_message)):
                 print(ai_chunk_message, end="")
 

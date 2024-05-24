@@ -22,20 +22,20 @@ from playsound import playsound
 #
 #     return output
 
-def assistent_speak(text, language="en"):
+def assistant_speak(text, language="en"):
     myobj = gTTS(text=text, lang=language, slow=False)
 
     path_to_proj_dir = pathlib.Path().resolve()
-    path_to_mp3_anser = os.path.join(path_to_proj_dir, "answer.mp3")
+    path_to_mp3_answer = os.path.join(path_to_proj_dir, "answer.mp3")
 
-    myobj.save(path_to_mp3_anser)
+    myobj.save(path_to_mp3_answer)
 
-    playsound(path_to_mp3_anser)
+    playsound(path_to_mp3_answer)
 
-    os.remove(path_to_mp3_anser)
+    os.remove(path_to_mp3_answer)
 
 def play_text_to_speech(text, language='en'):
-    assistent_speak(text, language)
+    assistant_speak(text, language)
 
     # playsound(sound_ref)
 
